@@ -36,9 +36,6 @@ func doRequest(ctx context.Context, client HttpClient, endpoint string, body io.
 		return nil, err
 	}
 
-	requestURL := req.URL.String()
-	fmt.Println(requestURL)
-
 	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
