@@ -78,7 +78,7 @@ func makeScheduleItems(rawItems []rawItem, now time.Time) ([]ScheduleItem, error
 
 	var previousMonth string
 
-	parseFormat := "Mon, 02 Jan 2006 15:04 MST"
+	parseFormat := "Mon, 02 Jan 2006 15:04 -0700 MST"
 
 	for _, rawItem := range rawItems {
 		month := rawItem.date[len(rawItem.date)-3:]
@@ -89,11 +89,11 @@ func makeScheduleItems(rawItems []rawItem, now time.Time) ([]ScheduleItem, error
 		rawTimeParts := strings.Split(rawItem.time, " - ")
 		lowerTime, upperTime := rawTimeParts[0], rawTimeParts[1]
 
-		startTime, err := time.Parse(parseFormat, fmt.Sprintf("%s %d %s SAST", rawItem.date, currentYear, lowerTime))
+		startTime, err := time.Parse(parseFormat, fmt.Sprintf("%s %d %s +0200 SAST", rawItem.date, currentYear, lowerTime))
 		if err != nil {
 			errs = append(errs, err.Error())
 		}
-		endTime, err := time.Parse(parseFormat, fmt.Sprintf("%s %d %s SAST", rawItem.date, currentYear, upperTime))
+		endTime, err := time.Parse(parseFormat, fmt.Sprintf("%s %d %s +0200 SAST", rawItem.date, currentYear, upperTime))
 		if err != nil {
 			errs = append(errs, err.Error())
 		}
